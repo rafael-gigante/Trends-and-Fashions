@@ -5,7 +5,7 @@ include("plots.jl")
 # N := number of agents, L := number of labels, β := temperature
 # ensembles := # of ensembles for each configuration, n_greatest := # of the greatest labels to track in each configuration and ensemble
 N = [10, 31, 10^2, 316, 10^3]
-L = [10, 10^2, 10^3]
+L = [10, 10^2, 10^3, 10^4]
 ensembles = 20
 
 # Arrays with the measures

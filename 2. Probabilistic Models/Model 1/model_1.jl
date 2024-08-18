@@ -4,9 +4,9 @@ include("plots.jl")
 # Parameters of the simulation
 # N := number of agents, L := number of labels, β := temperature
 # ensembles := # of ensembles for each configuration, n_greatest := # of the greatest labels to track in each configuration and ensemble
-N = [10^2, 10^3, 10^4]
+N = [10^2, 10^3, 10^4, 10^5]
 L = [10, 10^2, 10^3, 10^4]
-ensembles = 20
+ensembles = 10
 
 # Arrays with the measures
 iteration, entropy, percolation, suscept, τ = dynamics.generate_arrays(N, L, ensembles)
@@ -48,7 +48,7 @@ for n in eachindex(N)
     end
 end
 
-plots.plot_measures(iteration, entropy, percolation, suscept, N, L, ensembles, 10^2, 10^1)
+plots.plot_measures(iteration, entropy, percolation, suscept, N, L, ensembles, 10^3, 10^2)
 plots.plot_τ_fixed_L(τ, N, L)
 plots.plot_τ_fixed_N(τ, N, L)
 plots.plot_τ_NL(τ, N, L)

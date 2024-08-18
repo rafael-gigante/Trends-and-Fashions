@@ -84,6 +84,29 @@ function plot_τ_fixed_l(τ, N, L, β, l)
 end
 
 """
+    plot_τ_fixed_β(τ, N, L, β, b)
+
+Make a scatter plot of log(τ) vs log(N) for each L with a fixed value of b ∈ β and fit the data with a linear regression.
+
+"""
+function plot_τ_fixed_β(τ, N, L, β, b)
+    b_index = findfirst(==(b), β)
+
+    pl = plot(xlabel=L"$log(N)$", ylabel=L"$log(\tau)$", title="β=$b", minorgrid=true, framestyle=:box)
+    for l in eachindex(L)
+        temp_τ = []
+        for n in eachindex(N)
+            push!(temp_τ, τ[n][l][b_index])
+        end
+        data, slope, intercept = fit_data(log10.(N), log10.(temp_τ))
+
+        scatter!(data.X, data.Y, label=L"$L = %$(L[l])$", color=palette(:default)[l])
+        plot!(data.X, data.Y_pred, label=L"$Y = %$intercept + %$slope * X$", line=:dash, color=palette(:default)[l])
+    end
+    display(pl)
+end
+
+"""
     fermi_function(x, β)
 
 Returns the value of the Fermi-Dirac function given a value 'x' and a temperature 'β'.
@@ -162,21 +185,20 @@ end
 """
     plot_τ_over_N(τ, N, L, β, l)
 
-Make a plot of τ/N vs β for a given value of l ∈ L.
+Make a plot of τ/N vs N for a given value of l ∈ L.
 
 """
 function plot_τ_over_N(τ, N, L, β, l)
     l_index = findfirst(==(l), L)
 
-    pl = plot(xlabel=L"$\beta$", ylabel=L"$\tau/N$", title="L=$l", minorgrid=true, framestyle=:box)
-    for n in eachindex(N)
+    pl = plot(xlabel=L"N", ylabel=L"$\tau/N$", minorgrid=true, framestyle=:box)
+    for b in eachindex(β)
         temp_τ = []
-        for b in eachindex(β)
-            push!(temp_τ, τ[n][l_index][b])
+        for n in eachindex(N)
+            push!(temp_τ, τ[n][l_index][b]/N[n])
         end
-        temp_τ = temp_τ/N[n]
 
-        plot!(β, temp_τ, label=L"$N = %$(N[n])$", color=palette(:default)[n])
+        plot!(N, temp_τ, label=L"$β = %$(β[b])$", color=palette(:default)[b])
     end
     display(pl)
 end
