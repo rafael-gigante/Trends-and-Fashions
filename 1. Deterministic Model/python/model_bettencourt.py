@@ -6,8 +6,8 @@ from plots import plot_measures, plot_tau_fixed_L, plot_tau_fixed_N
 # Parameters of the simulation
 # N := number of agents, L := number of labels, p_crit := critical momentum threshold
 # ensembles := number of ensembles for each configuration
-N = [10**3, 10**4, 10**5]
-L = [10, 10**2, 10**3]
+N = [10**5]
+L = [10**3]
 p_crit = 1
 ensembles = 1
 
@@ -24,7 +24,8 @@ for n_index, n in enumerate(N):
 
             t = 0
             # The dynamics will occur until one label is fully occupied
-            while (max(N_i[1])/n) < 1:
+            #while (max(N_i[1])/n) < 1:
+            for aux in range(100):
                 # Perform interaction for two random agents N times
                 for it in range(n):
                     i = random.randint(0, n - 1)

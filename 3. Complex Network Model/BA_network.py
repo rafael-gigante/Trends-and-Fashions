@@ -1,7 +1,6 @@
 import random
 import imageio.v2 as imageio
 import os
-import networkx as nx
 from dynamics_functions import generate_initial_conditions, interaction, measures, generate_arrays, generate_barabasi_albert
 from plots import plot_measures, create_frame, plot_tau_fixed_L
 

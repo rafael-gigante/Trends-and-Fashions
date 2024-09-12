@@ -12,38 +12,49 @@ def plot_measures(iteration, entropy, percolation, suscept, N, L, ensembles, n, 
     l_index = L.index(l)
 
     # Plot entropy
-    plt.figure()
+    plt.figure(figsize=(7, 3.5))
+    plt.rc('font', size=10)        # Default font size
+    plt.rc('axes', titlesize=12)   # Title font size
+    plt.rc('axes', labelsize=10)   # X and Y label size
+    plt.rc('xtick', labelsize=8)   # X tick label size
+    plt.rc('ytick', labelsize=8)   # Y tick label size
+    plt.rc('legend', fontsize=8)   # Legend font size
+    plt.rc('lines', linewidth=2)   # Line width
+
     for i in range(ensembles):
-        plt.plot(iteration[n_index][l_index][i], entropy[n_index][l_index][i], label=None)
-    plt.axhline(np.log(l), color='red', linestyle='--', linewidth=1, label=r'$\log(L)$')
-    plt.xlabel("time [iterations]")
+        plt.plot(iteration[n_index][l_index][i], entropy[n_index][l_index][i], '--ko', markersize=5, label=None)
+    plt.axhline(np.log(l), color='red', linestyle='--', label=r'$\log(L)$')
+    plt.xlabel("tempo [iterações]")
     plt.ylabel(r"$S$")
     plt.ylim(0, np.log(l) + 0.2)
-    plt.title(f"N={n}, L={l}")
+    #plt.title(f"N={n}, L={l}")
     plt.legend(loc='right')
     plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+    plt.savefig('entropy.png', dpi=300, bbox_inches='tight')
     plt.show()
 
     # Plot percolation
-    plt.figure()
+    plt.figure(figsize=(7, 3.5))
     for i in range(ensembles):
-        plt.plot(iteration[n_index][l_index][i], percolation[n_index][l_index][i], label=None)
-    plt.axhline(1, color='black', linestyle='--', linewidth=1)
-    plt.xlabel("time [iterations]")
-    plt.ylabel(r"$P_c/N$")
+        plt.plot(iteration[n_index][l_index][i], percolation[n_index][l_index][i], '--ko', markersize=5, label=None)
+    plt.axhline(1, color='black', linestyle='--')
+    plt.xlabel("tempo [iterações]")
+    plt.ylabel(r"$P_{\rm c}$")
     plt.ylim(0, 1.02)
-    plt.title(f"N={n}, L={l}")
-    plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+    #plt.title(f"N={n}, L={l}")
+    plt.grid(True, which='both', linestyle='--')
+    plt.savefig('percolation.png', dpi=300, bbox_inches='tight')
     plt.show()
 
     # Plot susceptibility
-    plt.figure()
+    plt.figure(figsize=(7, 3.5))
     for i in range(ensembles):
-        plt.plot(iteration[n_index][l_index][i], suscept[n_index][l_index][i], label=None)
-    plt.xlabel("time [iterations]")
-    plt.ylabel(r"$S_c/N^2$")
-    plt.title(f"N={n}, L={l}")
-    plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+        plt.plot(iteration[n_index][l_index][i], suscept[n_index][l_index][i], '--ko', markersize=5, label=None)
+    plt.xlabel("tempo [iterações]")
+    plt.ylabel(r"$S_{\rm c}$")
+    #plt.title(f"N={n}, L={l}")
+    plt.grid(True, which='both', linestyle='--')
+    plt.savefig('susceptibility.png', dpi=300, bbox_inches='tight')
     plt.show()
 
 def fit_data(x, y):
