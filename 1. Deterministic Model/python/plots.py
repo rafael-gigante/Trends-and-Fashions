@@ -23,28 +23,27 @@ def plot_measures(iteration, entropy, percolation, suscept, N, L, ensembles, n, 
 
     for i in range(ensembles):
         plt.plot(iteration[n_index][l_index][i], entropy[n_index][l_index][i], '--ko', markersize=5, label=None)
-    plt.axhline(np.log(l), color='red', linestyle='--', label=r'$\log(L)$')
+    plt.axhline(np.log(l), color='red', linestyle='--', label=r'$\ln(L)$')
     plt.xlabel("tempo [iterações]")
     plt.ylabel(r"$S$")
     plt.ylim(0, np.log(l) + 0.2)
     #plt.title(f"N={n}, L={l}")
     plt.legend(loc='right')
     plt.grid(True, which='both', linestyle='--', linewidth=0.5)
-    plt.savefig('entropy.png', dpi=300, bbox_inches='tight')
-    plt.show()
+    plt.savefig('1. Deterministic Model/python/plots/entropy.png', dpi=300, bbox_inches='tight')
+    plt.close()
 
     # Plot percolation
     plt.figure(figsize=(7, 3.5))
     for i in range(ensembles):
         plt.plot(iteration[n_index][l_index][i], percolation[n_index][l_index][i], '--ko', markersize=5, label=None)
-    plt.axhline(1, color='black', linestyle='--')
     plt.xlabel("tempo [iterações]")
     plt.ylabel(r"$P_{\rm c}$")
     plt.ylim(0, 1.02)
     #plt.title(f"N={n}, L={l}")
     plt.grid(True, which='both', linestyle='--')
-    plt.savefig('percolation.png', dpi=300, bbox_inches='tight')
-    plt.show()
+    plt.savefig('1. Deterministic Model/python/plots/percolation.png', dpi=300, bbox_inches='tight')
+    plt.close()
 
     # Plot susceptibility
     plt.figure(figsize=(7, 3.5))
@@ -54,8 +53,23 @@ def plot_measures(iteration, entropy, percolation, suscept, N, L, ensembles, n, 
     plt.ylabel(r"$S_{\rm c}$")
     #plt.title(f"N={n}, L={l}")
     plt.grid(True, which='both', linestyle='--')
-    plt.savefig('susceptibility.png', dpi=300, bbox_inches='tight')
-    plt.show()
+    plt.savefig('1. Deterministic Model/python/plots/susceptibility.png', dpi=300, bbox_inches='tight')
+    plt.close()
+
+def plot_distribution(L, N_i, t):
+    indices = np.arange(0, L, 1)
+    plt.figure(figsize=(7, 3.5))
+    plt.stem(indices, N_i[1], linefmt ='black', markerfmt=" ", basefmt=" ")
+    plt.xlabel("índice da tendência")
+    plt.ylabel("número de agentes")
+    plt.xlim(0, L+1)
+    plt.ylim(0, max(N_i[1])+ 0.1*max(N_i[1]))
+    plt.grid(True, which='both', linestyle='--')
+    plt.text(0.02, 0.95, f"tempo = {t}", transform=plt.gca().transAxes,
+         fontsize=12, verticalalignment='top', bbox=dict(facecolor='white'))
+    plt.savefig(f'1. Deterministic Model/python/plots/distribution_{t}.png', dpi=300, bbox_inches='tight')
+    plt.close()
+
 
 def fit_data(x, y):
     """
@@ -105,7 +119,7 @@ def plot_tau_fixed_L(tau, N, L):
                  label=f"$Y = {intercept} + {slope} * X$")
 
     plt.legend()
-    plt.show()
+    plt.close()
 
 def plot_tau_fixed_N(tau, N, L):
     """
@@ -128,4 +142,4 @@ def plot_tau_fixed_N(tau, N, L):
                  label=f"$Y = {intercept} + {slope} * X$")
 
     plt.legend()
-    plt.show()
+    plt.close()

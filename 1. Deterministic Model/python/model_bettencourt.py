@@ -1,14 +1,15 @@
 import numpy as np
 import random
+import matplotlib.pyplot as plt
 from dynamics_functions import generate_initial_conditions, interaction, measures, generate_arrays
-from plots import plot_measures, plot_tau_fixed_L, plot_tau_fixed_N
+from plots import plot_measures, plot_tau_fixed_L, plot_tau_fixed_N, plot_distribution
 
 # Parameters of the simulation
 # N := number of agents, L := number of labels, p_crit := critical momentum threshold
 # ensembles := number of ensembles for each configuration
 N = [10**5]
 L = [10**3]
-p_crit = 1
+p_crit = 10**3
 ensembles = 1
 
 # Arrays to store the measures
@@ -25,7 +26,8 @@ for n_index, n in enumerate(N):
             t = 0
             # The dynamics will occur until one label is fully occupied
             #while (max(N_i[1])/n) < 1:
-            for aux in range(100):
+            for aux in range(200):
+                plot_distribution(l, N_i, t)
                 # Perform interaction for two random agents N times
                 for it in range(n):
                     i = random.randint(0, n - 1)
